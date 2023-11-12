@@ -18,6 +18,7 @@ const playTune = (key) => {
 
 pianoKeys.forEach((key) => {
     key.addEventListener("click", () => playTune(key.dataset.key));
+    key.addEventListener("touchstart", () => playTune(key.dataset.key));
     mapedKeys.push(key.dataset.key);
 });
 
