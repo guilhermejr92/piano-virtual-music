@@ -2,6 +2,14 @@ const pianoKeys = document.querySelectorAll(".piano-keys .key");
 const volumeSlider = document.querySelector(".volume-slider input");
 const keysCheck = document.querySelector(".keys-check input");
 
+const titleElement = document.getElementById("VirtualPianoTitle");
+let isVisible = true;
+
+setInterval(() => {
+    isVisible = !isVisible;
+    titleElement.style.visibility = isVisible ? "visible" : "hidden";
+}, 1000);
+
 let mapedKeys = [];
 let audio = new Audio("src/tunes/a.wav");
 
