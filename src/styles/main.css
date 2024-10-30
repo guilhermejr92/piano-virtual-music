@@ -80,6 +80,8 @@ header .column span {
     color: #a2a2a2;
     position: relative;
     text-transform: uppercase;
+    transition: background 0.2s, box-shadow 0.2s;
+    /* Transição suave */
 }
 
 .piano-keys .white {
@@ -110,14 +112,44 @@ header .column span {
 
 .piano-keys .white.active {
     box-shadow: inset -5px 5px 20px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(to botton #fff 0%, #eee 100%);
+    background: linear-gradient(to bottom, #fff 0%, #eee 100%);
 }
 
 .piano-keys .black.active {
     box-shadow: inset -5px 5px 10px rgba(255, 255, 255, 0.1);
-    background: linear-gradient(to botton #000, #434343);
+    background: linear-gradient(to bottom, #000, #434343);
 }
 
 .piano-keys .key.hide span {
     display: none;
+}
+
+.music-controls {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.music-controls select,
+.music-controls button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.music-controls select {
+    background-color: #4b4b4b;
+    color: #fff;
+}
+
+.music-controls button {
+    background-color: #1e88e5;
+    color: white;
+}
+
+.music-controls button:hover {
+    background-color: #1565c0;
 }
