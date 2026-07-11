@@ -1,61 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piano Simulator</title>
-
-    <!-- fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;700&display=swap" rel="stylesheet">
-
-    <!-- styles -->
-    <link rel="stylesheet" href="./src/styles/reset.css">
-    <link rel="stylesheet" href="./src/styles/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Piano virtual responsivo com reprodução de músicas, gravação de notas e controles acessíveis.">
+  <title>Piano Virtual 2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles/reset.css">
+  <link rel="stylesheet" href="./src/styles/main.css">
 </head>
-
 <body>
-    <div class="container">
-        <header>
-            <h2 id="VirtualPianoTitle">Virtual Piano</h2>
-            <div class="column volume-slider">
-                <span>Volume</span> <input type="range" min="0" max="1" value="0.5" step="any">
-            </div>
-            <div class="column keys-check">
-                <span>Teclas</span> <input type="checkbox" checked>
-            </div>
-        </header>
-        <div class="music-controls">
-            <select id="songSelect">
-                <option value="Twinkle Twinkle">Twinkle Twinkle</option>
-                <option value="Ode to Joy">Ode to Joy</option>
-            </select>
-            <button id="playSongBtn">Play Song</button>
-        </div>
-        <ul class="piano-keys">
-            <li class="key white" data-key="a"><span>a</span></li>
-            <li class="key black" data-key="w"><span>w</span></li>
-            <li class="key white" data-key="s"><span>s</span></li>
-            <li class="key black" data-key="e"><span>e</span></li>
-            <li class="key white" data-key="d"><span>d</span></li>
-            <li class="key black" data-key="f"><span>f</span></li>
-            <li class="key white" data-key="t"><span>t</span></li>
-            <li class="key black" data-key="g"><span>g</span></li>
-            <li class="key white" data-key="y"><span>y</span></li>
-            <li class="key black" data-key="h"><span>h</span></li>
-            <li class="key white" data-key="u"><span>u</span></li>
-            <li class="key black" data-key="j"><span>j</span></li>
-            <li class="key white" data-key="k"><span>k</span></li>
-            <li class="key black" data-key="o"><span>o</span></li>
-            <li class="key white" data-key="l"><span>l</span></li>
-            <li class="key black" data-key="p"><span>p</span></li>
-            <li class="key white" data-key=";"><span>;</span></li>
-        </ul>
-    </div>
-    <script src="./src/scripts/engine.js" defer></script>
-</body>
+  <main class="app-shell">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Experiência musical interativa</p>
+        <h1 id="page-title">Piano Virtual <span>2.0</span></h1>
+        <p class="hero__description">Toque pelo teclado, clique nas teclas, reproduza músicas e grave sua própria sequência.</p>
+      </div>
+      <div class="status-card" aria-live="polite">
+        <span class="status-card__label">Status</span>
+        <strong id="statusText">Pronto para tocar</strong>
+      </div>
+    </section>
 
+    <section class="piano-card" aria-label="Piano virtual">
+      <header class="toolbar">
+        <div class="control-group">
+          <label for="volumeControl">Volume</label>
+          <div class="range-row">
+            <input id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.7">
+            <output id="volumeValue" for="volumeControl">70%</output>
+          </div>
+        </div>
+
+        <div class="control-group control-group--inline">
+          <span id="labelsLabel">Exibir atalhos</span>
+          <label class="switch" aria-labelledby="labelsLabel">
+            <input id="labelsToggle" type="checkbox" checked>
+            <span class="switch__track" aria-hidden="true"></span>
+          </label>
+        </div>
+      </header>
+
+      <div class="song-panel">
+        <div class="song-panel__field">
+          <label for="songSelect">Música</label>
+          <select id="songSelect">
+            <option value="twinkle">Brilha, Brilha Estrelinha</option>
+            <option value="odeToJoy">Ode à Alegria</option>
+          </select>
+        </div>
+
+        <div class="button-row" role="group" aria-label="Controles da música">
+          <button id="playSongBtn" class="button button--primary" type="button">Reproduzir</button>
+          <button id="pauseSongBtn" class="button" type="button" disabled>Pausar</button>
+          <button id="stopSongBtn" class="button" type="button" disabled>Parar</button>
+        </div>
+      </div>
+
+      <div class="progress" aria-label="Progresso da música">
+        <div id="progressBar" class="progress__bar"></div>
+      </div>
+
+      <div class="piano-scroll" tabindex="0" aria-label="Use as setas horizontais para visualizar todas as teclas em telas menores">
+        <ul id="pianoKeys" class="piano-keys" aria-label="Teclas do piano"></ul>
+      </div>
+
+      <section class="recorder" aria-labelledby="recorder-title">
+        <div>
+          <p class="recorder__eyebrow">Gravador</p>
+          <h2 id="recorder-title">Crie sua própria sequência</h2>
+          <p id="recordingInfo">Nenhuma nota gravada.</p>
+        </div>
+        <div class="button-row">
+          <button id="recordBtn" class="button button--record" type="button">Gravar</button>
+          <button id="playRecordingBtn" class="button" type="button" disabled>Ouvir gravação</button>
+          <button id="clearRecordingBtn" class="button" type="button" disabled>Limpar</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="instructions" aria-labelledby="instructions-title">
+      <div>
+        <p class="eyebrow">Como usar</p>
+        <h2 id="instructions-title">Teclado, mouse ou toque</h2>
+      </div>
+      <p>Use as teclas indicadas no piano. Em dispositivos móveis, deslize horizontalmente e toque nas notas.</p>
+    </section>
+  </main>
+
+  <script type="module" src="./src/scripts/app.js"></script>
+</body>
 </html>
